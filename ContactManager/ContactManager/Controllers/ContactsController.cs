@@ -1,6 +1,11 @@
 ﻿using ContactManager.Core.Interfaces;
 using ContactManager.Core.Model;
+using CsvHelper.Configuration;
+using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
+using System.Text;
+using ContactManager.Maps;
 
 namespace ContactManager.Controllers;
 
@@ -19,7 +24,31 @@ public class ContactsController(IContactRepository contactRepository) : Controll
     [HttpPost]
     public async Task<IActionResult> UploadContacts(IFormFile csv)
     {
-        return Ok();
+        if (csv == null || csv.Length == 0)
+        {
+            return BadRequest("CSV file is required.");
+        }
+
+        var contacts = new List<Contact>();
+
+        using (var stream = new StreamReader(csv.OpenReadStream(), Encoding.UTF8))
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                HeaderValidated = null,
+            };
+
+            using (var csvReader = new CsvReader(stream, csvConfig))
+            {
+                csvReader.Context.RegisterClassMap<ContactMap>();
+                contacts = csvReader.GetRecords<Contact>().ToList();
+            }
+        }
+
+        await contactRepository.Upload(contacts);
+
+        return Ok("Contacts uploaded successfully");
     }
 
     [HttpPatch("{id}")]
@@ -35,5 +64,4 @@ public class ContactsController(IContactRepository contactRepository) : Controll
         await contactRepository.Delete(id);
         return Ok();
     }
-
 }
