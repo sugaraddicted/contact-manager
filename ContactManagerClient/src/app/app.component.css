@@ -1,0 +1,25 @@
+.header {
+    color: rgb(219, 219, 219);
+}
+
+.page {
+    padding: 2%;
+}
+
+.file-input {
+    color:rgb(219, 219, 219);
+    margin: 4px;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.upload-btn {
+    background-color: #5d7ca3;
+    color: white;
+    margin: 4px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }

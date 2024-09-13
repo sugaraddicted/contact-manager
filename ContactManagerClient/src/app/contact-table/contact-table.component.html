@@ -1,0 +1,59 @@
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th (click)="sortBy('name')">Name</th>
+      <th (click)="sortBy('dateOfBirth')">Date of Birth</th>
+      <th (click)="sortBy('married')">Married</th>
+      <th (click)="sortBy('phone')">Phone</th>
+      <th (click)="sortBy('salary')">Salary</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of filteredAndSortedContacts(); let i = index" [formGroup]="contactForms[i]">
+      <td *ngIf="editingIndex !== i">{{ contact.name }}</td>
+      <td *ngIf="editingIndex === i">
+        <input formControlName="name" />
+        <div *ngIf="contactForms[i]?.get('name')?.invalid && contactForms[i]?.get('name')?.touched" class="error">
+          Name is required.
+        </div>
+      </td>
+
+      <td *ngIf="editingIndex !== i">{{ contact.dateOfBirth }}</td>
+      <td *ngIf="editingIndex === i">
+        <input type="date" formControlName="dateOfBirth" />
+        <div *ngIf="contactForms[i]?.get('dateOfBirth')?.invalid && contactForms[i]?.get('dateOfBirth')?.touched" class="error">
+          Date of birth is required.
+        </div>
+      </td>
+
+      <td *ngIf="editingIndex !== i">{{ contact.married ? 'Yes' : 'No' }}</td>
+      <td *ngIf="editingIndex === i">
+        <input type="checkbox" formControlName="married" />
+      </td>
+
+      <td *ngIf="editingIndex !== i">{{ contact.phone }}</td>
+      <td *ngIf="editingIndex === i">
+        <input formControlName="phone" />
+        <div *ngIf="contactForms[i]?.get('phone')?.invalid && contactForms[i]?.get('phone')?.touched" class="error">
+          Phone number must be 10 digits.
+        </div>
+      </td>
+
+      <td *ngIf="editingIndex !== i">{{ contact.salary | currency }}</td>
+      <td *ngIf="editingIndex === i">
+        <input type="number" formControlName="salary" />
+        <div *ngIf="contactForms[i]?.get('salary')?.invalid && contactForms[i]?.get('salary')?.touched" class="error">
+          Salary must be a positive number.
+        </div>
+      </td>
+
+      <td>
+        <button class="edit-btn" *ngIf="editingIndex !== i" (click)="editContact(i)">Edit</button>
+        <button class="save-btn" *ngIf="editingIndex === i" (click)="saveContact(i)" [disabled]="contactForms[i].invalid">Save</button>
+        <button class="cancel-btn" *ngIf="editingIndex === i" (click)="cancelEdit(i)">Cancel</button>
+        <button class="delete-btn" (click)="deleteContact(contact.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

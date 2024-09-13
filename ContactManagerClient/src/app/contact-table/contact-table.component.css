@@ -1,0 +1,76 @@
+.styled-table {
+    color: #c4c4c4;
+    width: 100%;
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table thead tr {
+    background-color: #362441;
+    color: #dbb0d6;
+    text-align: left;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #2e2e2e;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #172b26;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #3b7c5c;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #166652;
+    color: rgb(228, 228, 228);
+  }
+  
+
+  .edit-btn,
+  .delete-btn,
+  .save-btn,
+  .cancel-btn{
+    margin: 4px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .save-btn {
+    background-color: #003b32;
+    color: white;
+  }
+
+  .cancel-btn {
+    background-color: #949494;
+    color: white;
+  }
+
+  .edit-btn {
+    background-color: #5d7ca3;
+    color: white;
+  }
+  
+  .delete-btn {
+    background-color: #420061;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #4553a0;
+  }
+  
+  .delete-btn:hover {
+    background-color: #570101;
+  }  
