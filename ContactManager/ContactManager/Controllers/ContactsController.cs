@@ -48,7 +48,7 @@ public class ContactsController(IContactRepository contactRepository) : Controll
 
         await contactRepository.Upload(contacts);
 
-        return Ok("Contacts uploaded successfully");
+        return Ok(new { message = "Contacts uploaded successfully" });
     }
 
     [HttpPatch("{id}")]
